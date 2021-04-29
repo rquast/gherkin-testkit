@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "allowJs": true,
+        "noImplicitAny": true,
+        "outDir": "./dist/",
+        "target": "esnext",
         "declaration": true,
-        "module": "commonjs",
+        "module": "esnext",
         "sourceMap": true,
         "moduleResolution": "node",
-        "outDir": "dist",
         "strict": true,
         "rootDir": ".",
         "lib": ["esnext"],
@@ -13,7 +15,7 @@
     },
     "exclude": [
         "node_modules",
-        "examples/ecmascript",
         "dist"
-    ]
+    ],
+    "include": ["src/**/*"]
 }

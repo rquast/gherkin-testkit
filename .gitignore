@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# cache
+.cache
+
 # Runtime data
 pids
 *.pid
@@ -40,3 +43,4 @@ dist/
 
 .DS_Store
 .idea
+.vscode

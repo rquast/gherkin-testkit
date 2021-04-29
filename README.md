@@ -1,116 +1,55 @@
-# Jest Cucumber
+# Gherkin TestKit
 
-Execute Gherkin scenarios in Jest
+A framework agnostic library for implementing Given, When, Then and parsing/validation of Gherkin feature files.
 
-[![Build Status](https://travis-ci.org/bencompton/jest-cucumber.svg?branch=master)](https://travis-ci.org/bencompton/jest-cucumber) [![Greenkeeper badge](https://badges.greenkeeper.io/bencompton/jest-cucumber.svg)](https://greenkeeper.io/)
-[![npm downloads](https://img.shields.io/npm/dm/jest-cucumber.svg?style=flat-square)](https://www.npmjs.com/package/jest-cucumber)
-
-<img src="./images/jest-cucumber-demo.gif?raw=true" alt="Cucumber Jest Demo" />
+### EXPERIMENTAL - DO NOT USE IN PRODUCTION
 
 ## Overview
 
-jest-cucumber is an alternative to [Cucumber.js](https://github.com/cucumber/cucumber-js) that runs on top on [Jest](https://jestjs.io). Instead of using `describe` and `it` blocks, you instead write a Jest test for each scenario, and then define `Given`, `When`, and `Then` step definitions inside of your Jest tests. jest-cucumber then allows you to link these Jest tests to your feature files and ensure that they always [stay in sync](https://github.com/bencompton/jest-cucumber/blob/master/docs/AdditionalConfiguration.md#disabling-scenario--step-definition-validation).
+gherkin-testkit is a minimal, framework agnostic fork of [jest-cucumber](https://github.com/bencompton/jest-cucumber). Like Jest-Cucumber, it implements the [Cucumber.js Gherkin AST parser](https://github.com/cucumber/cucumber/tree/master/gherkin). However, to keep the implementation light, gherkin-testkit does not implement a code generator used for hinting what code is needing to be implemented if missing. It is also missing the file system functionality of `loadFeatures, loadFeature` for compatibility with testing frameworks (such as WTR) that cannot access the filesystem using native `fs` calls.
 
 ## Motivation
 
-Jest is an excellent test runner with great features like parallel test execution, mocking, snapshots, code coverage, etc. If you're using VS Code, there's also a terrific [Jest extension](https://github.com/jest-community/vscode-jest) that allows you get realtime feedback as you're writing your tests and easily debug failing tests individually. [Cucumber](https://cucumber.io) is a popular tool for doing [Acceptance Test-Driven Development](https://en.wikipedia.org/wiki/Acceptance_test–driven_development) and creating business-readable executable specifications. This library aims to achieve the best of both worlds, and even run your unit tests and acceptance tests in the same test runner.
+Jest-Cucumber is an excellent library for Jest which builds on top of Cucumber.js' Gherkin parser. The other alternative to Jest-Cucumber is Cucumber.js itself and Yadda, which uses its own syntax. Outside of these three libraries there are limited options. My need to work with [Snowpack](https://www.snowpack.dev/) means I wanted to shift to [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/) / RTL / Mocha / Chai / Sinon, which caused me to create this fork. Jest-Cucumber implements Jest calls in the `feature-definition-creation.ts` file - which is where I made function calls customizable by configuration. Without configuration, it defaults to work with Mocha's calls. Another pain problem has been Cucumber's use of profobuffjs which contains a cyclical dependency breaking both snowpack and rollup. The workaround has been to bundle this with webpack as a module.
 
-## Getting Started
+## Roadmap
 
-### Install Jest Cucumber:
+If possible, it would be ideal to have a single core for both Jest and other frameworks. Currently, the plan is to implement this core (or another one like it) with a test-runner-gherkin for WTR. The same may (or may not) be done for Jest.
+
+## Example usage for WTR
+
+The following is an example step test file:
 
 ```
-npm install jest-cucumber --save-dev
-```
+import { readFile } from '@web/test-runner-commands';
+import { parseFeature, defineFeature, getGherkinTestKitConfiguration } from 'gherkin-testkit';
+import { expect } from 'chai';
 
-### Add a Feature file:
-
-```gherkin
-Feature: Logging in
-
-Scenario: Entering a correct password
-    Given I have previously created a password
-    When I enter my password correctly
-    Then I should be granted access
-```
-
-### Add the following to your Jest configuration:
-
-```javascript
-  "testMatch": [
-    "**/*.steps.js"
-  ],
-```
-
-### Add a step definition file that links to your feature file:
-
-```javascript
-// logging-in.steps.js
-
-import { defineFeature, loadFeature } from 'jest-cucumber';
-
-const feature = loadFeature('features/LoggingIn.feature');
-```
-
-### Add a Jest test for each scenario into your step definition file:
-
-```javascript
-// logging-in.steps.js
-
-import { defineFeature, loadFeature } from 'jest-cucumber';
-
-const feature = loadFeature('features/LoggingIn.feature');
-
-defineFeature(feature, test => {
-  test('Entering a correct password', ({ given, when, then }) => {
-
-  });
-});
-```
-
-### Add step definitions to your scenario Jest tests:
-
-```javascript
-// logging-in.steps.js
-
-import { loadFeature, defineFeature } from 'jest-cucumber';
-import { PasswordValidator } from 'src/password-validator';
-
-const feature = loadFeature('specs/features/basic-scenarios.feature');
-
-defineFeature(feature, (test) => {
-  let passwordValidator = new PasswordValidator();
-  let accessGranted = false;
-
-  beforeEach(() => {
-    passwordValidator = new PasswordValidator();
-  });
-
-  test('Entering a correct password', ({ given, when, then }) => {
-    given('I have previously created a password', () => {
-      passwordValidator.setPassword('1234');
-    });
-
-    when('I enter my password correctly', () => {
-      accessGranted = passwordValidator.validatePassword('1234');
-    });
-
-    then('I should be granted access', () => {
-      expect(accessGranted).toBe(true);
+//@ts-ignore
+readFile({ path: './CloneInit.feature' }).then((content) => {
+  const feature = parseFeature(content, getGherkinTestKitConfiguration({}));
+  defineFeature(feature, test => {
+    test('Valid URL given for something that exists in localStorage', ({
+      given,
+      when,
+      then
+    }) => {
+      given('a user wants to load a project already in localStorage', () => {
+        expect(true).to.equal(true);
+      });
+  
+      when('the user enters a URL that matches', () => {
+        expect(true).to.equal(true);
+      });
+  
+      then('the system renders what is in localStorage', () => {
+        expect(true).to.equal(true);
+      });
     });
   });
 });
 ```
 
-## Additional Documentation
+## Step file code generation
 
-* [Asynchronous steps](./docs/AsynchronousSteps.md)
-* [Automatic step Binding](./docs/AutomaticStepBinding.md)
-* [Backgrounds](./docs/Backgrounds.md)
-* [Configuration options](./docs/AdditionalConfiguration.md)
-* [Gherkin tables](./docs/GherkinTables.md)
-* [Re-using step definitions](./docs/ReusingStepDefinitions.md)
-* [Running the examples](./docs/RunningTheExamples.md)
-* [Scenario outlines](./docs/ScenarioOutlines.md)
-* [Step definition arguments](./docs/StepDefinitionArguments.md)
-* [Using Docstrings](./docs/UsingDocstrings.md)
+To quickly generate step files, you can use the [Jest-Cucumber code generator](https://marketplace.visualstudio.com/items?itemName=Piotr-Porzuczek.jest-cucumber-code-generator-extension) for vscode.
