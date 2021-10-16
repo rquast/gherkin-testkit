@@ -10,7 +10,7 @@ gherkin-testkit is a minimal, framework agnostic fork of [jest-cucumber](https:/
 
 ## Motivation
 
-Jest-Cucumber is an excellent library for Jest which builds on top of Cucumber.js' Gherkin parser. The other alternative to Jest-Cucumber is Cucumber.js itself and Yadda, which uses its own syntax. Outside of these three libraries there are limited options. My need to work with [Snowpack](https://www.snowpack.dev/) means I wanted to shift to [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/) / RTL / Mocha / Chai / Sinon, which caused me to create this fork. Jest-Cucumber implements Jest calls in the `feature-definition-creation.ts` file - which is where I made function calls customizable by configuration. Without configuration, it defaults to work with Mocha's calls. Another pain problem has been Cucumber's use of profobuffjs which contains a cyclical dependency breaking both snowpack and rollup. The workaround has been to bundle this with webpack as a module.
+Jest-Cucumber is an excellent library for Jest which builds on top of Cucumber.js' Gherkin parser. The other alternative to Jest-Cucumber is Cucumber.js itself and Yadda, which uses its own syntax. Outside of these three libraries there are limited options. My need to work with [Snowpack](https://www.snowpack.dev/) means I wanted to shift to [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/) / RTL / Mocha / Chai / Sinon, which caused me to create this fork. Jest-Cucumber implements Jest calls in the `feature-definition-creation.ts` file - which is where I made function calls customizable by configuration. Without configuration, it defaults to work with Mocha's calls.
 
 ## Roadmap
 

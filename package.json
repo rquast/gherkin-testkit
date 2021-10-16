@@ -1,8 +1,29 @@
 {
   "name": "gherkin-testkit",
+  "version": "0.0.3",
+  "description": "A framework agnostic library for implementing Given, When, Then and parsing/validation of Gherkin feature files.",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rquast/gherkin-testkit.git"
+  },
+  "keywords": [
+    "mocha",
+    "web test runner",
+    "gherkin",
+    "cucumber",
+    "bdd"
+  ],
+  "author": "Roland Quast",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/rquast/gherkin-testkit/issues"
+  },
+  "homepage": "https://github.com/rquast/gherkin-testkit#readme",
   "scripts": {
-    "build": "rimraf dist && webpack",
-    "dist": "yarn build && cd dist && npm pack",
+    "build": "rimraf dist && tsc",
+    "dist": "yarn build && npm pack",
     "format": "prettier --write \"src/**/*.{js,ts}\"",
     "lint": "eslint . && prettier --check \"src/**/*.{js,ts}\""
   },
@@ -20,6 +41,6 @@
     "webpack-cli": "^4.6.0"
   },
   "dependencies": {
-    "@cucumber/gherkin": "^18.1.1"
+    "@cucumber/gherkin": "^22.0.0"
   }
 }

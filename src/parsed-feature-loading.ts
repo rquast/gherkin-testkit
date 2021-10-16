@@ -3,7 +3,7 @@ import {
   AstBuilder,
   Dialect,
   dialects,
-  TokenMatcher
+  GherkinInMarkdownTokenMatcher
 } from '@cucumber/gherkin';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -390,10 +390,10 @@ export const parseFeature = (
   let ast: any;
 
   try {
-    ast = new Parser(new AstBuilder(uuidv4 as any), new TokenMatcher()).parse(
+    ast = new Parser(new AstBuilder(uuidv4 as any), new GherkinInMarkdownTokenMatcher()).parse(
       featureText
     );
-  } catch (err) {
+  } catch (err: any) {
     throw new Error(`Error parsing feature Gherkin: ${err.message}`);
   }
 
