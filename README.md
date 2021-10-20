@@ -2,7 +2,10 @@
 
 A framework agnostic library for implementing Given, When, Then and parsing/validation of Gherkin feature files.
 
-### EXPERIMENTAL - DO NOT USE IN PRODUCTION
+## Running
+
+`yarn workspace @gherkin-testkit/core build`
+`yarn workspace @gherkin-testkit/web-test-runner test:integration`
 
 ## Overview
 

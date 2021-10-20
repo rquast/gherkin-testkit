@@ -30,10 +30,10 @@ const resolveFixup = {
   setup(build) {
     // NOTE: this is an example for cases where Vite cannot resolve a dependency automatically.
     //
-    // build.onResolve({ filter: /react-virtualized/ }, async (args) => {
+    // build.onResolve({ filter: /@gherkin-testkit\/core/ }, async (args) => {
     //   return {
     //     path: path.resolve(
-    //       './node_modules/react-virtualized/dist/umd/react-virtualized.js'
+    //       '../core/src/index.ts'
     //     )
     //   };
     // });
@@ -42,11 +42,16 @@ const resolveFixup = {
 
 export default defineConfig({
   optimizeDeps: {
+    exclude: [
+      '@gherkin-testkit/core'
+    ],
     esbuildOptions: {
-      plugins: [resolveFixup]
+      plugins: [resolveFixup],
+
     },
     // NOTE: anything that vite forgets to bundle in node_modules/.vite when preparing dependencies goes here.
     include: [
+      '@gherkin-testkit/core',
       'chai',
       '@testing-library/react',
       '@testing-library/react/dont-cleanup-after-each'
