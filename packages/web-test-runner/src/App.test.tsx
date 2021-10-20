@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { expect } from 'chai';
 import App from './App';
 
@@ -16,7 +16,13 @@ describe('A simple test', () => {
         resolve(true);
       }, 2000);
     });
-    // debugger;
+    const countButton = screen.getByTestId('count-button');
+    fireEvent.click(countButton);
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 2000);
+    });
     expect(document.body.contains(linkElement));
   });
 });

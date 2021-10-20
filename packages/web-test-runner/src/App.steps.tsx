@@ -5,8 +5,8 @@ import {
 } from '@gherkin-testkit/core';
 import { expect } from 'chai';
 
-import React, { useContext, useEffect } from 'react';
-import { render, screen, fireEvent, getByText } from '@testing-library/react';
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 //@ts-ignore
 import { plainText as AppFeature } from '@virtual:plain-text/src/App.feature';
@@ -18,7 +18,7 @@ const feature = parseFeature(
 );
 
 defineFeature(feature, (test: any) => {
-  test('Scenario: Incrementing the counter in the App component', ({
+  test('Scenario: Incrementing the counter in the App component', async ({
     given,
     when,
     then
@@ -36,7 +36,7 @@ defineFeature(feature, (test: any) => {
       fireEvent.click(countButton);
     });
 
-    then('I should see a count equal to 1', () => {
+    then('I should see a count equal to 1', async () => {
       const incrementedButton = screen.getByText(/count is: 1/i);
       expect(document.body.contains(incrementedButton));
     });
