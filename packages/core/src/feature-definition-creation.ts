@@ -194,6 +194,7 @@ const defineScenario = (
     if (options.timeout) {
       testFunction(scenarioTitle, () => {
         return fn;
+      //@ts-ignore	
       }).timeout(options.timeout);
     } else {
       testFunction(scenarioTitle, () => {
