@@ -4,18 +4,18 @@ import { createServer } from 'vite'
 
 const viteServer = await createServer({
   base: '/',
-  resolve: {
-    // `module`, `jsnext:main`, and `jsnext` are not standard Node.js package.json fields.
-    // Entries listed in these fields are not likely recognizable as Node.js ESM.
-    // So we must skip them. Use `exports` or `main` only.
-    mainFields: []
-  },
   optimizeDeps: {
     include: [
       '@gherkin-testkit/core',
       '@testing-library/react',
       '@testing-library/react/dont-cleanup-after-each'
     ]
+  },
+  resolve: {
+    // `module`, `jsnext:main`, and `jsnext` are not standard Node.js package.json fields.
+    // Entries listed in these fields are not likely recognizable as Node.js ESM.
+    // So we must skip them. Use `exports` or `main` only.
+    mainFields: []
   },
   server: {
     hmr: false,

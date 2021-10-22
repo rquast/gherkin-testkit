@@ -8,7 +8,7 @@ export default {
   extensionsToTreatAsEsm: ['.jsx', '.vue', '.ts', '.tsx'],
 
   transform: {
-    "^.+\\.(js|mjs|jsx|json|vue|ts|tsx)$": resolveRelative('./index.mjs'),
+    "^.+\\.(js|mjs|jsx|json|vue|ts|tsx)$": resolveRelative('./index.js'),
   },
   transformIgnorePatterns: [
     '!/node_modules/\\.vite/',

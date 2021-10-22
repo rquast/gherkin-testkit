@@ -2,12 +2,10 @@ import os from 'os'
 import path from 'path'
 import { createRequire } from 'module';
 
-// import { parse } from 'es-module-lexer/dist/lexer.js'
-import { parse } from 'es-module-lexer';
-
+import { parse } from 'es-module-lexer'
 import MagicString from 'magic-string'
 
-import viteServer from './vite-server.mjs'
+import viteServer from './vite-server.js'
 
 const require = createRequire(import.meta.url)
 
