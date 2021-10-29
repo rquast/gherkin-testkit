@@ -6,6 +6,7 @@ A framework agnostic library for implementing Given, When, Then and parsing/vali
 
 `yarn workspace @gherkin-testkit/core build`
 `yarn workspace @gherkin-testkit/web-test-runner test:integration`
+`yarn workspace @gherkin-testkit/jest test:integration`
 
 ## Overview
 

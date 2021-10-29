@@ -6,6 +6,7 @@ const viteServer = await createServer({
   base: '/',
   optimizeDeps: {
     include: [
+      'chai',
       '@gherkin-testkit/core',
       '@testing-library/react',
       '@testing-library/react/dont-cleanup-after-each'

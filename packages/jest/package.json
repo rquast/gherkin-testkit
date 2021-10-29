@@ -6,7 +6,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "./vite-jest/bin/vite-jest.js --forceExit --no-cache",
-    "test:integration": "./vite-jest/bin/vite-jest.js--forceExit --no-cache \"src/**/*.steps.{js,jsx,ts,tsx}\"",
+    "test:integration": "./vite-jest/bin/vite-jest.js --forceExit --no-cache ",
     "test:coverage": "./vite-jest/bin/vite-jest.js --forceExit --no-cache --coverage \"src/**/*.test.{js,jsx,ts,tsx}\" "
   },
   "dependencies": {
